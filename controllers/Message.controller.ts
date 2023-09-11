@@ -33,3 +33,34 @@ export const createMessage = async (
     next(errorResponse("something went wrong", 500));
   }
 };
+
+export const getMessages = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {
+      body: { users },
+    } = req;
+
+    if (!users) return next(errorResponse("users are required", 400));
+
+    let messages = await Message.find(
+      {},
+      {
+        users,
+      }
+    )
+      .populate("sender")
+      .populate("receiver");
+
+    res.status(200).json({
+      status: true,
+      messages,
+    });
+  } catch (error: any) {
+    console.log("error-adding-message", error.message);
+    next(errorResponse("something went wrong", 500));
+  }
+};
