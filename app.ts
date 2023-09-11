@@ -7,20 +7,12 @@ import errorResponse from "./utils/errorResponse.js";
 import UserRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import FriendRouter from "./routes/Friends.route.js";
+import { app, server, io } from "./configs/app.config.js";
 
-const app: Application = express();
 const port = process.env.PORT || 8080;
-const server = http.createServer(app);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-    credentials: true,
-  },
-});
 
 dbConfig()
   .then(() => {

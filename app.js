@@ -1,23 +1,14 @@
 import express from "express";
-import { Server } from "socket.io";
-import http from "http";
 import dbConfig from "./configs/db.config.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import errorResponse from "./utils/errorResponse.js";
 import UserRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import FriendRouter from "./routes/Friends.route.js";
-const app = express();
+import { app, server } from "./configs/app.config.js";
 const port = process.env.PORT || 8080;
-const server = http.createServer(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const io = new Server(server, {
-    cors: {
-        origin: "*",
-        credentials: true,
-    },
-});
 dbConfig()
     .then(() => {
     console.log("connected to mongoose successfully");
