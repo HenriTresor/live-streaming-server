@@ -46,12 +46,7 @@ export const getMessages = async (
 
     if (!users) return next(errorResponse("users are required", 400));
 
-    let messages = await Message.find(
-      {},
-      {
-        users,
-      }
-    )
+    let messages = await Message.find({ users })
       .populate("sender")
       .populate("receiver");
 
