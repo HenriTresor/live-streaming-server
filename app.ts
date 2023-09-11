@@ -2,6 +2,7 @@ import express, { Request, Response, Application } from "express";
 import { Server } from "socket.io";
 import http from "http";
 import dbConfig from "./configs/db.config.js";
+import errorHandler from "./middlewares/errorHandler.js";
 
 const app: Application = express();
 const port = process.env.PORT || 8080;
@@ -19,3 +20,5 @@ dbConfig().then(() => {
     console.log(`server is fire on ${port}`);
   });
 });
+
+app.use(errorHandler);
