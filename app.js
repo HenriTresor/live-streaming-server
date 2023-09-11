@@ -26,9 +26,20 @@ app.all("*", (req, res, next) => {
     next(errorResponse("route was not found", 404));
 });
 app.use(errorHandler);
+// socket implementation
+let onlineUsers;
+onlineUsers = [];
 io.on("connection", (socket) => {
     console.log("new socket connected:", socket.id);
+    onlineUsers = [...onlineUsers, socket.id];
+    socket.on("new message", (message) => {
+        if (onlineUsers.includes(message.receiver)) {
+            let receiver = onlineUsers.find((user) => `${user}` === `${message.receiver}`);
+            socket.to(receiver).emit("message", message);
+        }
+    });
     socket.on("disconnect", () => {
         console.log("socket left: ", socket.id);
+        onlineUsers = onlineUsers.filter((user) => user !== socket.id);
     });
 });
