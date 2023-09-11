@@ -5,6 +5,7 @@ import dbConfig from "./configs/db.config.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import errorResponse from "./utils/errorResponse.js";
 import UserRouter from "./routes/user.route.js";
+import authRouter from "./routes/auth.route.js";
 
 const app: Application = express();
 const port = process.env.PORT || 8080;
@@ -33,6 +34,7 @@ dbConfig()
 const root = "/api/v1";
 
 app.use(`${root}/users`, UserRouter);
+app.use(`${root}/auth`, authRouter);
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(errorResponse("route was not found", 404));

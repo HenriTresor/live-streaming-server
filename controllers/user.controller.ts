@@ -26,7 +26,13 @@ export const createUser = async (
 
     res.status(201).json({
       status: true,
-      user: _.pick(newUser, ["email", "fullName"]),
+      user: _.pick(newUser, [
+        "email",
+        "fullName",
+        "_id",
+        "createdAt",
+        "updatedAt",
+      ]),
     });
   } catch (error: any) {
     console.log("error-creating-user", error);
