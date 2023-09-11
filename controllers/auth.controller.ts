@@ -4,6 +4,7 @@ import errorResponse from "../utils/errorResponse.js";
 import { checkUserByEmail } from "../services/User.services.js";
 import { compare } from "bcrypt";
 import _ from "lodash";
+import createToken from "../utils/createToken.js";
 
 export const login = async (
   req: Request,
@@ -21,8 +22,10 @@ export const login = async (
     let isCorrectPassword = await compare(password, user.password);
     if (!isCorrectPassword) return next(errorResponse("invalid password", 403));
 
+    const token = createToken(`${user._id}`);
     res.status(200).json({
       status: true,
+      token,
       user: _.pick(user, [
         "email",
         "fullName",

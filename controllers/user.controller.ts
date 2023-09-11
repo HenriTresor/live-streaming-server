@@ -4,6 +4,7 @@ import userValidObject from "../validators/user.joi.js";
 import errorResponse from "../utils/errorResponse.js";
 import _ from "lodash";
 import { checkUserByEmail } from "../services/User.services.js";
+import createToken from "../utils/createToken.js";
 
 export const createUser = async (
   req: Request,
@@ -24,8 +25,10 @@ export const createUser = async (
 
     if (!newUser._id) throw new Error();
 
+    const token = createToken(`${newUser._id}`);
     res.status(201).json({
       status: true,
+      token,
       user: _.pick(newUser, [
         "email",
         "fullName",
