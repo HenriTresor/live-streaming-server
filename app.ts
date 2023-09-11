@@ -19,4 +19,3 @@ dbConfig().then(() => {
     console.log(`server is fire on ${port}`);
   });
 });
-
