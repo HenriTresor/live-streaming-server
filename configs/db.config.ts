@@ -7,5 +7,6 @@ export default async () => {
     );
   } catch (error: any) {
     console.log("error connecting to Mongoose", error.message);
+    process.exit();
   }
 };

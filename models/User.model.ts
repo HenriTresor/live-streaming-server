@@ -10,6 +10,8 @@ interface User {
 const UserSchema = new mongoose.Schema<User>(
   {
     email: { type: String, required: true, unique: true, trim: true },
+    fullName: { type: String, required: true, trim: true },
+    password: { type: String, required: true, trim: true },
   },
 
   {

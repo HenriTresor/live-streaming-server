@@ -14,5 +14,6 @@ export default () => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.log("error connecting to Mongoose", error.message);
+        process.exit();
     }
 });
