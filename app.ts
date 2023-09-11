@@ -8,6 +8,7 @@ import UserRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import FriendRouter from "./routes/Friends.route.js";
 import { app, server, io } from "./configs/app.config.js";
+import type { User } from "./models/User.model.js";
 
 const port = process.env.PORT || 8080;
 
@@ -38,25 +39,31 @@ app.use(errorHandler);
 
 // socket implementation
 
-let onlineUsers: any[];
+interface SocketUser {
+  _id: string;
+  socketId: string;
+}
+
+let onlineUsers: SocketUser[];
 
 onlineUsers = [];
 
 io.on("connection", (socket) => {
   console.log("new socket connected:", socket.id);
 
-  onlineUsers = [...onlineUsers, socket.id];
-
+  socket.on("new user", (user: any) => {
+    onlineUsers = [...onlineUsers, { ...user, socketId: socket.id }];
+    console.log(onlineUsers);
+  });
   socket.on("new message", (message) => {
-    if (onlineUsers.includes(message.receiver)) {
-      let receiver = onlineUsers.find(
-        (user) => `${user}` === `${message.receiver}`
-      );
-      socket.to(receiver).emit("message", message);
+    const receiver = onlineUsers.find((user) => user._id === message.receiver);
+    if (receiver) {
+      socket.to(receiver.socketId).emit("message", message);
     }
   });
+  socket.emit("online users", onlineUsers);
   socket.on("disconnect", () => {
     console.log("socket left: ", socket.id);
-    onlineUsers = onlineUsers.filter((user) => user !== socket.id);
+    onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id);
   });
 });

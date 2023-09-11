@@ -26,20 +26,23 @@ app.all("*", (req, res, next) => {
     next(errorResponse("route was not found", 404));
 });
 app.use(errorHandler);
-// socket implementation
 let onlineUsers;
 onlineUsers = [];
 io.on("connection", (socket) => {
     console.log("new socket connected:", socket.id);
-    onlineUsers = [...onlineUsers, socket.id];
+    socket.on("new user", (user) => {
+        onlineUsers = [...onlineUsers, Object.assign(Object.assign({}, user), { socketId: socket.id })];
+        console.log(onlineUsers);
+    });
     socket.on("new message", (message) => {
-        if (onlineUsers.includes(message.receiver)) {
-            let receiver = onlineUsers.find((user) => `${user}` === `${message.receiver}`);
-            socket.to(receiver).emit("message", message);
+        const receiver = onlineUsers.find((user) => user._id === message.receiver);
+        if (receiver) {
+            socket.to(receiver.socketId).emit("message", message);
         }
     });
+    socket.emit("online users", onlineUsers);
     socket.on("disconnect", () => {
         console.log("socket left: ", socket.id);
-        onlineUsers = onlineUsers.filter((user) => user !== socket.id);
+        onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id);
     });
 });
