@@ -6,6 +6,7 @@ import errorHandler from "./middlewares/errorHandler.js";
 import errorResponse from "./utils/errorResponse.js";
 import UserRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
+import FriendRouter from "./routes/Friends.route.js";
 const app = express();
 const port = process.env.PORT || 8080;
 const server = http.createServer(app);
@@ -29,6 +30,7 @@ dbConfig()
 const root = "/api/v1";
 app.use(`${root}/users`, UserRouter);
 app.use(`${root}/auth`, authRouter);
+app.use(`${root}/friends`, FriendRouter);
 app.all("*", (req, res, next) => {
     next(errorResponse("route was not found", 404));
 });

@@ -13,6 +13,14 @@ export const sendFriendRequest = async (
       body: { requesterId, requestId },
     } = req;
 
+    if (!requestId || !requesterId)
+      return next(errorResponse("2 users are required", 400));
+
+    if (requesterId === requestId)
+      return next(
+        errorResponse("User does not send friends requests to themself", 409)
+      );
+
     let requester = await checkUserById(requesterId);
     let requested = await checkUserById(requestId);
 
@@ -27,7 +35,7 @@ export const sendFriendRequest = async (
 
     const updatedRequester = await User.findOneAndUpdate(requester._id, {
       $push: {
-        friendRequests: requested._id,
+        sentRequests: requested._id,
       },
     });
 
@@ -35,8 +43,6 @@ export const sendFriendRequest = async (
       status: true,
       message: "friend requests was sent successfully",
     });
-      
-      
   } catch (error: any) {
     console.log("error-sending-friend-request", error.message);
 
