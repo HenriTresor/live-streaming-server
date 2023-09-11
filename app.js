@@ -5,7 +5,7 @@ import errorResponse from "./utils/errorResponse.js";
 import UserRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import FriendRouter from "./routes/Friends.route.js";
-import { app, server } from "./configs/app.config.js";
+import { app, server, io } from "./configs/app.config.js";
 const port = process.env.PORT || 8080;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -26,3 +26,9 @@ app.all("*", (req, res, next) => {
     next(errorResponse("route was not found", 404));
 });
 app.use(errorHandler);
+io.on("connection", (socket) => {
+    console.log("new socket connected:", socket.id);
+    socket.on("disconnect", () => {
+        console.log("socket left: ", socket.id);
+    });
+});

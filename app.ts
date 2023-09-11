@@ -35,3 +35,11 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use(errorHandler);
+
+io.on("connection", (socket) => {
+  console.log("new socket connected:", socket.id);
+
+  socket.on("disconnect", () => {
+    console.log("socket left: ", socket.id);
+  });
+});
