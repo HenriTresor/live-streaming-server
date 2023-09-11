@@ -5,11 +5,11 @@ interface User {
   email: string;
   fullName: string;
   password: string;
-  friends: User[];
-  sentRequests: User[];
-  friendRequests: User[];
-  followers: User[];
-  following: User[];
+  friends: any[];
+  sentRequests: any[];
+  friendRequests: any[];
+  followers: any[];
+  following: any[];
 }
 
 const UserSchema = new mongoose.Schema<User>(
