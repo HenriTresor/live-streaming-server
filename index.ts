@@ -97,7 +97,7 @@ const nms = new NodeMediaServer({
     mediaroot: "/uploads",
   },
   relay: {
-    ffmpeg: "",
+    ffmpeg: 'C:\\ffmpeg-6.0-essentials_build\\bin\\ffmpeg.exe',
     tasks: [
       {
         app: "live",
