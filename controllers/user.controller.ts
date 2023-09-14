@@ -42,3 +42,26 @@ export const createUser = async (
     next(errorResponse("something went wrong"));
   }
 };
+
+export const updateUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { body } = req;
+    const {
+      params: { id },
+    } = req;
+
+    await User.findOneAndUpdate({ _id: id }, { $set: { ...body } });
+
+    res.status(200).json({
+      status: true,
+      message: "user was updated successfully",
+    });
+  } catch (error) {
+    console.log("error-updating-user", error);
+    next(errorResponse("something went wrong"));
+  }
+};
