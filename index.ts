@@ -8,6 +8,7 @@ import UserRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import FriendRouter from "./routes/Friends.route.js";
 import MessageRouter from "./routes/message.route.js";
+import VideoRouter from "./routes/Video.route.js";
 import { app, server, io } from "./configs/app.config.js";
 import type { User } from "./models/User.model.js";
 import NodeMediaServer from "node-media-server";
@@ -33,6 +34,7 @@ app.use(`${root}/users`, UserRouter);
 app.use(`${root}/auth`, authRouter);
 app.use(`${root}/friends`, FriendRouter);
 app.use(`${root}/messages`, MessageRouter);
+app.use(`${root}/videos`, VideoRouter);
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(errorResponse("route was not found", 404));
@@ -70,7 +72,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("offer", (data) => {
-    console.log(data)
+    console.log(data);
     socket.broadcast.emit("offer", data);
   });
 
@@ -97,7 +99,7 @@ const nms = new NodeMediaServer({
     mediaroot: "/uploads",
   },
   relay: {
-    ffmpeg: 'C:\\ffmpeg-6.0-essentials_build\\bin\\ffmpeg.exe',
+    ffmpeg: "C:\\ffmpeg-6.0-essentials_build\\bin\\ffmpeg.exe",
     tasks: [
       {
         app: "live",
