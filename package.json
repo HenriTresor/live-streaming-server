@@ -23,6 +23,7 @@
     "@types/lodash": "^4.14.198",
     "@types/node-media-server": "^2.3.4",
     "bcrypt": "^5.1.1",
+    "cloudinary": "^1.40.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
@@ -34,6 +35,7 @@
     "multer": "^1.4.5-lts.1",
     "node-media-server": "^2.6.2",
     "nodemailer": "^6.9.5",
+    "peerjs": "^1.5.0",
     "socket.io": "^4.7.2"
   }
 }

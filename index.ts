@@ -10,8 +10,14 @@ import FriendRouter from "./routes/Friends.route.js";
 import MessageRouter from "./routes/message.route.js";
 import VideoRouter from "./routes/Video.route.js";
 import { app, server, io } from "./configs/app.config.js";
-import type { User } from "./models/User.model.js";
 import NodeMediaServer from "node-media-server";
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const port = process.env.PORT || 8080;
 
