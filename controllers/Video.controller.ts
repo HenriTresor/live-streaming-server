@@ -65,3 +65,20 @@ export const uploadVideo = async (
     next(errorResponse("something went wrong"));
   }
 };
+
+export const getVideos = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const videos = await Video.find({}).populate("uploader");
+    res.status(200).json({
+      videos,
+      status: true,
+    });
+  } catch (error) {
+    console.log("error-getting-video", error);
+    next(errorResponse("something went wrong"));
+  }
+};
