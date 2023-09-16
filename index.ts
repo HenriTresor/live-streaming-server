@@ -13,13 +13,10 @@ import VideoRouter from "./routes/Video.route.js";
 import { app, server, io } from "./configs/app.config.js";
 import NodeMediaServer from "node-media-server";
 import { v2 as cloudinary } from "cloudinary";
-import Stripe from "stripe";
 import { config } from "dotenv";
 import cors from "cors";
 
 config();
-
-const py = new Stripe(`${process.env.STRIPE_SECRET_KEY}`, {apiVersion:'2023-08-16'});
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
