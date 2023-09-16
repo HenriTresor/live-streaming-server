@@ -36,6 +36,7 @@
     "node-media-server": "^2.6.2",
     "nodemailer": "^6.9.5",
     "peerjs": "^1.5.0",
-    "socket.io": "^4.7.2"
+    "socket.io": "^4.7.2",
+    "stripe": "^13.6.0"
   }
 }

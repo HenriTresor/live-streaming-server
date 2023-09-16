@@ -7,11 +7,19 @@ import errorResponse from "./utils/errorResponse.js";
 import UserRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import FriendRouter from "./routes/Friends.route.js";
+import StripeRouter from './routes/Stripe.route.js'
 import MessageRouter from "./routes/message.route.js";
 import VideoRouter from "./routes/Video.route.js";
 import { app, server, io } from "./configs/app.config.js";
 import NodeMediaServer from "node-media-server";
 import { v2 as cloudinary } from "cloudinary";
+import Stripe from "stripe";
+import { config } from "dotenv";
+import cors from "cors";
+
+config();
+
+const py = new Stripe(`${process.env.STRIPE_SECRET_KEY}`, {apiVersion:'2023-08-16'});
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -21,6 +29,7 @@ cloudinary.config({
 
 const port = process.env.PORT || 8080;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -41,6 +50,7 @@ app.use(`${root}/auth`, authRouter);
 app.use(`${root}/friends`, FriendRouter);
 app.use(`${root}/messages`, MessageRouter);
 app.use(`${root}/videos`, VideoRouter);
+app.use(`${root}/stripe`, StripeRouter);
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(errorResponse("route was not found", 404));
