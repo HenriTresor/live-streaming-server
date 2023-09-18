@@ -16,6 +16,8 @@ export const login = async (
       body: { email, password },
     } = req;
 
+    if (!email || !password)
+      return next(errorResponse("email and password must be provided", 400));
     const user = await checkUserByEmail(email);
     if (!user) return next(errorResponse("invalid email address", 404));
 

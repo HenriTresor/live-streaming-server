@@ -5,7 +5,7 @@ import { v2, UploadApiResponse } from "cloudinary";
 import fs from "fs";
 
 export const uploadVideo = async (
-  req: Request,
+  req: Request | any,
   res: Response,
   next: NextFunction
 ) => {
@@ -60,7 +60,7 @@ export const uploadVideo = async (
       message: "video uploaded successfully",
       video: newVideo,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log("error-creating-video", error);
     next(errorResponse("something went wrong"));
   }
