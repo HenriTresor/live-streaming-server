@@ -7,10 +7,10 @@ import errorResponse from "./utils/errorResponse.js";
 import UserRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import FriendRouter from "./routes/Friends.route.js";
-import StripeRouter from './routes/Stripe.route.js'
+import StripeRouter from "./routes/Stripe.route.js";
 import MessageRouter from "./routes/message.route.js";
 import VideoRouter from "./routes/Video.route.js";
-import CoinRouter from './routes/Coin.route.js'
+import CoinRouter from "./routes/Coin.route.js";
 import { app, server, io } from "./configs/app.config.js";
 import NodeMediaServer from "node-media-server";
 import { v2 as cloudinary } from "cloudinary";
