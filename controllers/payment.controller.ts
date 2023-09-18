@@ -2,7 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import stripe from "../configs/stripe.config.js";
 import errorResponse from "../utils/errorResponse.js";
 
-export const createCheckoutSession = async (req: Request, res: Response, next: NextFunction) => {
+export const createCheckoutSession = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     console.log(req.body);
     const session = await stripe.checkout.sessions.create({
