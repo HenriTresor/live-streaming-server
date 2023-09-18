@@ -10,6 +10,7 @@ import FriendRouter from "./routes/Friends.route.js";
 import StripeRouter from './routes/Stripe.route.js'
 import MessageRouter from "./routes/message.route.js";
 import VideoRouter from "./routes/Video.route.js";
+import CoinRouter from './routes/Coin.route.js'
 import { app, server, io } from "./configs/app.config.js";
 import NodeMediaServer from "node-media-server";
 import { v2 as cloudinary } from "cloudinary";
@@ -48,6 +49,7 @@ app.use(`${root}/friends`, FriendRouter);
 app.use(`${root}/messages`, MessageRouter);
 app.use(`${root}/videos`, VideoRouter);
 app.use(`${root}/stripe`, StripeRouter);
+app.use(`${root}/coins`, CoinRouter);
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(errorResponse("route was not found", 404));
