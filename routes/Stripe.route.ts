@@ -8,7 +8,7 @@ router.post("/create-checkout-session", async (req, res, next) => {
   try {
     console.log(req.body);
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card", "paypal"],
+      payment_method_types: [ "paypal","card"],
       mode: "payment",
       line_items: req.body.items?.map((item: any) => {
         return {
