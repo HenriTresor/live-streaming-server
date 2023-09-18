@@ -10,6 +10,7 @@ export interface User {
   friendRequests: any[];
   followers: any[];
   following: any[];
+  coins: number;
 }
 
 const UserSchema = new mongoose.Schema<User>(
@@ -48,6 +49,7 @@ const UserSchema = new mongoose.Schema<User>(
         ref: "users",
       },
     ],
+    coins: { type: Number, default: 0 },
   },
 
   {
