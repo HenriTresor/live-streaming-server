@@ -6,7 +6,7 @@ import verifyToken from "../middlewares/verifyToken.js";
 
 const router = Router();
 
-router.post("/create-checkout-session", verifyToken, createCheckoutSession);
+router.post("/create-checkout-session", createCheckoutSession);
 
 router.get("/success", (req, res) => {
   res.send("success");
