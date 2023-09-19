@@ -53,20 +53,6 @@ export const createCheckoutSession = async (
       status: true,
       url: session.url,
     });
-    if (session.payment_status === "paid") {
-      await UserModel.findOneAndUpdate(
-        userId,
-        {
-          $inc: {
-            coins: req.items[0].amount,
-          },
-        },
-        { new: true }
-      );
-      return;
-    } else {
-      console.log("coins were not added");
-    }
   } catch (error: any) {
     console.log("error-creating-checkout-session", error.message);
     next(errorResponse("something went wrong"));
