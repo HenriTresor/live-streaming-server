@@ -29,6 +29,7 @@ router.post(
         sig,
         process.env.STRIPE_WEBHOOK_SECRET as string
       );
+      
 
       if (e.type === "checkout.session.completed") {
         const amount: any = e.data.object as number;
