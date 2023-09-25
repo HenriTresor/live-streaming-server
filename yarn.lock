@@ -860,6 +860,13 @@ get-intrinsic@^1.0.2:
     has-proto "^1.0.1"
     has-symbols "^1.0.3"
 
+getusermedia@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/getusermedia/-/getusermedia-2.0.1.tgz#f81af9795bc5934649813f7d092dd65030b34655"
+  integrity sha512-G1gFU5yt2B/atoufTyur/KqWwTgLTIV04cjgIr8cVKbZZM53Cp7bit3XomsZ82KFyS011DtB06wkzl7WZ7uHkA==
+  dependencies:
+    webrtc-adapter "^2.0.2"
+
 glob-parent@~5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.2.tgz#869832c58034fe68a4093c17dc15e8340d8401c4"
@@ -1519,6 +1526,11 @@ safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
+sdp@^1.0.0:
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/sdp/-/sdp-1.5.4.tgz#8e038f6ddb14bd765ae1f4b5216e12094511e0d0"
+  integrity sha512-9x0+fpJHW2bbqtIktmL+H9m+BswgurPVPhWrur4cCZPDWDSsdGYvRBaKhDXlnNCD1b/Xi8cOTG2u703CTQuwgg==
+
 sdp@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/sdp/-/sdp-3.2.0.tgz#8961420552b36663b4d13ddba6f478d1461896a5"
@@ -1875,6 +1887,13 @@ webidl-conversions@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-7.0.0.tgz#256b4e1882be7debbf01d05f0aa2039778ea080a"
   integrity sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==
+
+webrtc-adapter@^2.0.2:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/webrtc-adapter/-/webrtc-adapter-2.1.0.tgz#612b5bc6ce8e73c9d0660038a21f9255a867bf3e"
+  integrity sha512-i38RPNdm68QS6jQFWDuYEOLv5HvWE0Hz99eePd7Nk/c3FmhFUR6zNyfhASdPewm2u1tMfHkRTx9cAZyq3prRlA==
+  dependencies:
+    sdp "^1.0.0"
 
 webrtc-adapter@^8.0.0:
   version "8.2.3"

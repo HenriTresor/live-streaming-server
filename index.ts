@@ -89,7 +89,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("offer", (data) => {
-    console.log(data);
     socket.broadcast.emit("offer", data);
   });
 
@@ -100,28 +99,35 @@ io.on("connection", (socket) => {
   socket.on("ice-candidate", (data) => {
     socket.broadcast.emit("ice-candidate", data);
   });
+  socket.on("stream", (data) => {
+    // Broadcast the received video stream to all other connected clients
+    console.log("data received", data);
+    socket.emit("stream", data);
+  });
 });
 
 const nms = new NodeMediaServer({
   rtmp: {
-    port: 1935,
-    chunk_size: 60000,
-    gop_cache: true,
-    ping: 60,
-    ping_timeout: 30,
+    port: 1935, // RTMP server port
+    chunk_size: 60000, // Chunk size for video segments
+    gop_cache: true, // Enable GOP cache
+    ping: 60, // Ping interval in seconds
+    ping_timeout: 30, // Timeout for ping requests in seconds
   },
   http: {
-    port: 5000,
-    allow_origin: "*",
-    mediaroot: "/uploads",
+    port: 8000, // HTTP server port
+    mediaroot: "./media", // Directory where recorded media files are stored
+    allow_origin: "*", // Allow all domains to access the HLS stream
   },
-  relay: {
-    ffmpeg: "C:\\ffmpeg-6.0-essentials_build\\bin\\ffmpeg.exe",
+  trans: {
+    ffmpeg: "C:\\ffmpeg-6.0-essentials_build\\bin\\ffmpeg.exe", // Path to the ffmpeg executable
     tasks: [
       {
-        app: "live",
-        mode: "push",
-        edge: "rtmp://localhost:1935/live",
+        app: "live", // Application name
+        hls: true, // Enable HLS
+        hlsFlags: "[hls_time=2:hls_list_size=3:hls_flags=delete_segments]",
+        dash: true, // Enable DASH
+        dashFlags: "[f=dash:window_size=3:extra_window_size=5]",
       },
     ],
   },
